@@ -80,7 +80,9 @@ namespace MyApp.ViewModels
             previoslySelected = SelectedCharacter;
             SelectedCharacter = null;
             //await Application.Current.MainPage.DisplayAlert("Personaje seleccionado", character.Name, "ok");
-            var route = $"{nameof(DetalleViewPage)}?IdCharacter={character.Id}";
+            var page = nameof(DetalleViewPage).ToString();
+            var IdCharacter = character.Id.ToString();
+            var route = page + "?IdCharacter=" + IdCharacter;
             await Shell.Current.GoToAsync(route);
         }
         private async Task Add()
@@ -89,7 +91,8 @@ namespace MyApp.ViewModels
             // string name = await Application.Current.MainPage.DisplayPromptAsync("Nuevo Personaje", "Capture el nombre del personaje", "Ok");
             // await CharacterServices.AddCharacter(game, name);
             // await RefreshAsync();
-            var route = $"{nameof(AltaPersonajesViewPage)}";
+            //var route = $"{nameof(AltaPersonajesViewPage)}";
+            var route = nameof(AltaPersonajesViewPage).ToString();
             await Shell.Current.GoToAsync(route);
         }
 

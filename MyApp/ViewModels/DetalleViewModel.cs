@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyApp.ViewModels
 {
-    public class DetalleViewModel
+    public class DetalleViewModel:ViewModelBase
     {
        
     }

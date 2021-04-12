@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyApp.Views.DetalleViewPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:MyApp.ViewModels"
+             x:Class="MyApp.Views.DetalleViewPage"
+              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             >
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:DetalleViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="loquesea"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Image Source="{Binding Image}" HeightRequest="200"/>
+            <Label Text="{Binding Game}" FontSize="Title" FontAttributes="Bold" TextColor="Blue"/>
+            <Label Text="{Binding Name}" FontSize="Subtitle" TextColor="Blue"/>
+            <Button Text="OK" Command="{Binding CmdOk}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

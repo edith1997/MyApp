@@ -60,6 +60,9 @@ namespace MyApp.Services
         {
             await Init();
 
+            var character = await db.Table<Character>().FirstOrDefaultAsync(c => c.Id == id);
+            return character;
+
         }
 
     }

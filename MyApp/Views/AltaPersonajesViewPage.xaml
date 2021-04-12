@@ -4,8 +4,8 @@
              x:Class="MyApp.Views.AltaPersonajesViewPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
               x:Name="MyPage2"
-                 x:DataType="vm:AltaPersonajesViewModel"
-             Shell.PresentationMode="Modal"
+              x:DataType="vm:AltaPersonajesViewModel"
+             Shell.PresentationMode="ModalAnimated"
              >
     <!-- PARA LOS BINDIG-->
     <ContentPage.BindingContext>
@@ -25,21 +25,20 @@
               Margin="20"
               >
             <Entry 
-                x:Name="game"
+                Text="{Binding Game}"
                 Placeholder="Escribe el nombre del Juego"
                  Grid.Row="1"
                 />
             <Entry 
-                  
+                  Text="{Binding Name}"
                    Placeholder="Escribe el nombre del personaje"
                  Grid.Row="2"
                 />
             <Button
                   Grid.Row="3"
-             
-                                
+                Command="{Binding CmdGuardar}"
                 Text="Aceptar"></Button>
-            <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+           
         </Grid>
 
     </ContentPage.Content>
