@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyApp.Views.SqlLitePage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:vm="clr-namespace:MyApp.ViewModels" xmlns:model="clr-namespace:MyApp.Models"
+             x:DataType="vm:SqlLiteViewModelClass" 
+             x:Name="MyPage"
+             >
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:SqlLiteViewModelClass/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="loquesea"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Agregar" Command="{Binding CmdAdd}"
+            />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ListView
+            BackgroundColor="Transparent"
+            ItemsSource="{Binding Character}"
+            HasUnevenRows="True"
+            SeparatorColor="Green"
+            SeparatorVisibility="None"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy}"
+            RefreshCommand="{Binding CmdRefresh}"
+            RefreshControlColor="Blue"
+            CachingStrategy="RecycleElement"
+            SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+            >
+            <ListView.Behaviors>
+                <xct:EventToCommandBehavior
+                    EventName="ItemSelected"
+                    Command="{Binding CmdSelected}"
+                    EventArgsConverter="{StaticResource loquesea}"
+                    />
+            </ListView.Behaviors>
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:Character">
+                    <ViewCell>
+                        <!--Favoritos click en el que sea-->
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Añadir Favorito"
+                                      Command="{Binding Source={x:Reference MyPage}, Path= BindingContext.CmdFavorite}"
+                                      CommandParameter="{Binding .}"/>
+                            <MenuItem Text="Borrar" IsDestructive="True" 
+                                       Command="{Binding Source={x:Reference MyPage}, Path= BindingContext.CmdRemove}"
+                                      CommandParameter="{Binding .}"
+                                      />
+                        </ViewCell.ContextActions>
+
+                        <Grid Padding="10">
+                            <Frame CornerRadius="20" HasShadow="True">
+                                <StackLayout Orientation="Horizontal" Spacing="30">
+                                    <Image Source="{Binding Image}" HeightRequest="40"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Game}" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Name}" VerticalOptions="Center" FontSize="Medium"/>
+                                        <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="Medium"/>
+
+                                    </StackLayout>
+                                  
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.Header>
+                <Label Text="Personajes de Nintendo"
+                       TextColor="Blue"
+                       FontSize="Title"
+                       HorizontalOptions="Center"/>
+            </ListView.Header>
+
+            
+
+
+
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:MyApp.ViewModels"
+             x:Class="MyApp.Views.TestPage"
+             x:DataType="vm:TestPageViewModel" 
+             >
+    <!-- VARIABLES precompiladas  x:DataType="vm:TestPageViewModel" -->
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:TestPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,60,60,60,60,60,60,*"
+              ColumnDefinitions="*"
+              RowSpacing="0"
+              Margin="20"
+              >
+
+            <!-- <BoxView BackgroundColor="Green" Grid.Row="0"/>
+            <BoxView BackgroundColor="red" Grid.Row="1"/>
+            <BoxView BackgroundColor="Purple" Grid.Row="2"/>
+            <BoxView BackgroundColor="Yellow" Grid.Row="3"/>-->
+            <Entry 
+                Text="{Binding Mensaje}"
+                 Grid.Row="1"
+                />
+            <Label 
+                
+                   FontSize="Title"
+                   Text="{Binding Mensaje}"
+                   HorizontalOptions="CenterAndExpand"
+                   Grid.Row="2"
+                   ></Label>
+            <Button
+                  Grid.Row="3"
+                Command="{Binding CmdIncrementar}"
+                Text="Clickeame!!!!"></Button>
+            <Button
+                Text="Activity Indicator ON"
+                Command="{Binding CmdActivityIndicatorOn}"
+                Grid.Row="4"
+                >
+            </Button>
+            <Button
+                Text="Activity Indicator Off"
+                Command="{Binding CmdActivityIndicatorOff}"
+                Grid.Row="5"
+                >
+            </Button>
+            <Button
+                Text="Mostrar Mensaje"
+                Command="{Binding CmdMostrarMensaje}"
+                Grid.Row="6"
+                >
+            </Button>
+         
+            <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

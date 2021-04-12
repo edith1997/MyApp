@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:MyApp.ViewModels" xmlns:model="clr-namespace:MyApp.Models"
+             x:Class="MyApp.Views.ListViewPage"
+             x:DataType="vm:ListViewViewModel" 
+             >
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:ListViewViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <ListView
+            BackgroundColor="Transparent"
+           ItemsSource="{Binding CharacterGroups}"
+            
+            HasUnevenRows="True"
+            SeparatorColor="Green"
+            SeparatorVisibility="None"
+            ItemTapped="ListView_ItemTapped"
+            ItemSelected="ListView_ItemSelected"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsBusy}"
+            RefreshCommand="{Binding CmdRefresh}"
+            RefreshControlColor="Blue"
+            CachingStrategy="RecycleElement"
+            
+            IsGroupingEnabled="True"
+            GroupDisplayBinding="{Binding Key}"
+            >
+            <!-- tAMAÑO DEFINIDO O AJUSTADO  HasUnevenRows ,IsPullToRefreshEnabled="True" nativo con is busy, RefreshCommand="{Binding CmdRefresh}" esperar segundos
+             CachingStrategy="RecycleElement" para guardar imagenes si no hay internet siempre se pone
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                      <x:String> Elemento1</x:String>
+                    <x:String> Elemento2 </x:String>
+                    <x:String> Elemento3</x:String> 
+            </x:Array> 
+
+            </ListView.ItemsSource> Fijo-->
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:Character">
+                    <!--<TextCell Text="{Binding .}" Detail="{Binding .}"/>-->
+                    <!-- <SwitchCell Text="{Binding .}"></SwitchCell>-->
+                    <!-- <ImageCell Text="{Binding Game}" Detail="{Binding Name}" ImageSource="{Binding Image}"></ImageCell>-->
+                        <ViewCell>
+                        <!--Favoritos click en el que sea-->
+                            <ViewCell.ContextActions>
+                            <MenuItem Text="Añadir Favorito" Clicked="MenuItem_Clicked"/>
+                                <MenuItem Text="Borrar" />
+                            </ViewCell.ContextActions>
+
+                        <Grid Padding="10">
+                            <Frame CornerRadius="20" HasShadow="True">
+                                <StackLayout Orientation="Horizontal" Spacing="40">
+                                    <Image Source="{Binding Image}" HeightRequest="70"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Game}" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Name}" VerticalOptions="Center" FontSize="Medium"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.Header>
+                <Label Text="Personajes de Nintendo"
+                       TextColor="Blue"
+                       FontSize="Title"
+                       HorizontalOptions="Center"/>
+            </ListView.Header>
+
+            <ListView.Footer>
+                <Button Text="Cargar Mas"
+                        HorizontalOptions="Center"/>
+            </ListView.Footer>
+            
+            
+
+        </ListView>
+       
+    </ContentPage.Content>
+</ContentPage>

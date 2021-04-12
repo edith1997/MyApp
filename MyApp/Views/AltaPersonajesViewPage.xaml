@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:MyApp.ViewModels"
+             x:Class="MyApp.Views.AltaPersonajesViewPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+              x:Name="MyPage2"
+                 x:DataType="vm:AltaPersonajesViewModel"
+             Shell.PresentationMode="Modal"
+             >
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:AltaPersonajesViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="loquesea"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,60,60,60,60,60,60,*"
+              ColumnDefinitions="*"
+              RowSpacing="0"
+              Margin="20"
+              >
+            <Entry 
+                x:Name="game"
+                Placeholder="Escribe el nombre del Juego"
+                 Grid.Row="1"
+                />
+            <Entry 
+                  
+                   Placeholder="Escribe el nombre del personaje"
+                 Grid.Row="2"
+                />
+            <Button
+                  Grid.Row="3"
+             
+                                
+                Text="Aceptar"></Button>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

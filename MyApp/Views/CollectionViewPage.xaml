@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:MyApp.ViewModels"
+             x:Class="MyApp.Views.CollectionViewPage"
+             x:DataType="vm:CollectionViewViewModel" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:model="clr-namespace:MyApp.Models">
+    
+    <!-- PARA LOS BINDIG-->
+    <ContentPage.BindingContext>
+        <vm:CollectionViewViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <RefreshView
+            IsRefreshing="{Binding IsBusy}"
+            RefreshColor="Red"
+            Command="{Binding CmdRefresh}"
+            >
+            <CollectionView BackgroundColor="Transparent" ItemsSource="{Binding Character}" 
+                            SelectedItem="{Binding SelectedCharacter,Mode=TwoWay}" 
+                            SelectionMode="Single"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding CmdDelayLoadMore}"
+                          
+                            ItemSizingStrategy="MeasureAllItems"
+                            SelectionChangedCommand="{Binding CmdSelected}"
+                            SelectionChangedCommandParameter="{Binding SelectedCharacter}"
+                            >
+                <!-- Efecto de Recargar
+                  ItemsLayout="HorizontalList"
+                  ItemsLayout="VerticalList"
+                   RemainingItemsThreshold="1"
+                   RemainingItemsThresholdReachedCommand="{Binding CmdDelayLoadMore}"
+                -->
+                 <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical" Span="2"
+                        >
+                    </GridItemsLayout>
+                </CollectionView.ItemsLayout> 
+                
+                <CollectionView.EmptyView>
+                    <Label Text="No existen Personajes" FontSize="Subtitle" TextColor="Red" HorizontalTextAlignment="Center"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Character">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                    Text="Favorito"
+                                    BackgroundColor="Orange"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CollectionViewViewModel}},Path=CmdFavorite}"
+                                    CommandParameter="{Binding .}">
+                                    </SwipeItem>
+                                    <SwipeItem
+                                    Text="Borrar"
+                                    BackgroundColor="Red"
+                                    IsDestructive="True">
+                                    </SwipeItem>
+                                </SwipeItems>
+                              
+                            </SwipeView.RightItems>
+
+                            <Frame CornerRadius="10" HasShadow="True">
+                               
+                               <StackLayout Orientation="Horizontal" Spacing="30">
+                                    <Label Text="{Binding Game}" 
+                                           VerticalOptions="Center" HorizontalOptions="Center" 
+                                           FontSize="Micro" FontAttributes="Bold"/>
+                                    <Image Source="{Binding Image}" HeightRequest="30" />
+                                    <Label Text="{Binding Name}" VerticalOptions="Center"
+                                           HorizontalOptions="Center" 
+                                           FontSize="Medium"/>
+                                    <!-- <Image Source="{Binding Image}" HeightRequest="200"/>
+                                    <StackLayout>
+                                        <Label Text="{Binding Game}" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Name}" VerticalOptions="Center" FontSize="Medium"/>
+                                    </StackLayout>-->
+                                      <!--  <Button Text="Favorito" HorizontalOptions="EndAndExpand"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewVMViewModel}},Path=CmdFavorite}"
+                                        CommandParameter="{Binding .}"
+                                        />
+                                     <Button Text="Delete" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListViewVMViewModel}},Path=CmdBorrar}"
+                                        CommandParameter="{Binding .}"  HorizontalOptions="EndAndExpand"/>-->
+                                </StackLayout> 
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                
+                <CollectionView.Header>
+                    <Label Text="Personajes de Nintendo"
+                       TextColor="Blue"
+                       FontSize="Title"
+                       HorizontalOptions="Center"/>
+
+                </CollectionView.Header>
+                
+                <CollectionView.Footer>
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Cargar Mas" Command="{Binding CmdLoadMore}" />
+                        <Button Text="Limpiar" Command="{Binding CmdClear}" />
+                    </StackLayout>
+                   
+                </CollectionView.Footer>
+
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
