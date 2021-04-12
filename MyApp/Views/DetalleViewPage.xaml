@@ -18,7 +18,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Image Source="{Binding Image}" HeightRequest="200"/>
-            <Label Text="{Binding Game}" FontSize="Title" FontAttributes="Bold" TextColor="Blue"/>
+            <Label Text="{Binding Game}" FontSize="Title" FontAttributes="Bold" TextColor="Blue" HorizontalTextAlignment="Center"/>
             <Label Text="{Binding Name}" FontSize="Subtitle" TextColor="Blue"/>
             <Button Text="OK" Command="{Binding CmdOk}"/>
         </StackLayout>

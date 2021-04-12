@@ -49,7 +49,7 @@ namespace MyApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Dato invalido", "Ingrese el nombre del juego", "Ok");
             return;
              }
-            //   await CharacterServices.AddCharacter(Game, Name);
+            await CharacterServices.AddCharacter(Game, Name);
             await Shell.Current.GoToAsync("..");
         }
 
