@@ -1,4 +1,5 @@
 ﻿using MvvmHelpers.Commands;
+using MyApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,16 +23,21 @@ namespace MyApp.ViewModels
         private string idCharacter;
         public string IdCharacter { get => idCharacter; set => SetProperty(ref idCharacter, value); }
 
+        public Task Init { get; private set; }
         public DetalleViewModel()
         {
-            int Idaux;
-            int.TryParse(IdCharacter, out Idaux);
             CmdOk = new AsyncCommand(Ok);
-
+            Init = Ok();
         }
 
         private async Task Ok()
         {
+            int Idaux;
+            int.TryParse(IdCharacter, out Idaux);
+            var character = await CharacterServices.GetCharacter(Idaux);
+            Name = character.Name;
+            Game = character.Game;
+            Image = character.Image;
             await AppShell.Current.GoToAsync("..");
         }
     }
