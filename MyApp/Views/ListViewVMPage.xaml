@@ -8,7 +8,7 @@
               x:Name="ListViewVM"
              
              >
-    <!-- PARA LOS BINDIG -->
+    <!-- PARA LOS BINDIG  cambios en comentarios-->
     <ContentPage.BindingContext>
         <vm:ListViewVMViewModel/>
     </ContentPage.BindingContext>
