@@ -4,7 +4,7 @@
              x:Class="MyApp.Views.SqlLitePage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:vm="clr-namespace:MyApp.ViewModels" xmlns:model="clr-namespace:MyApp.Models"
              x:DataType="vm:SqlLiteViewModelClass" 
-             x:Name="MyPage"
+             x:Name="viewModel"
              >
     <!-- PARA LOS BINDIG-->
     <ContentPage.BindingContext>
